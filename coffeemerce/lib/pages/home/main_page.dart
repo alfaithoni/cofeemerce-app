@@ -1,5 +1,6 @@
 import 'package:coffeemerce/pages/home/cart_page.dart';
 import 'package:coffeemerce/pages/home/home_page.dart';
+import 'package:coffeemerce/pages/home/product.dart';
 import 'package:coffeemerce/pages/home/profile_page.dart';
 import 'package:coffeemerce/pages/home/wishlist_page.dart';
 import 'package:coffeemerce/themes.dart';
@@ -82,7 +83,7 @@ class _MainPageState extends State<MainPage> {
     Widget body(){
       switch (currentIndex) {
         case 0:
-          return HomePage();
+          return HomePage(products: products,);
           // break;
         case 1:
           return WishlistPage();
@@ -94,7 +95,7 @@ class _MainPageState extends State<MainPage> {
           return ProfilePage();
           // break;
         default:
-          return HomePage();
+          return HomePage(products: products);
       }
   };
 

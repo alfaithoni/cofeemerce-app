@@ -1,36 +1,85 @@
-import 'package:coffeemerce/themes.dart';
+import 'dart:async';
+import 'package:coffeemerce/providers/auth_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:coffeemerce/themes.dart';
 
-class SignUpPage extends StatefulWidget {
-  @override
-  State<SignUpPage> createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
-  TextEditingController nameController = TextEditingController(text: '');
-
-  TextEditingController usernameController = TextEditingController(text: '');
-
-  TextEditingController emailController = TextEditingController(text: '');
-
-  TextEditingController passwordController = TextEditingController(text: '');
-
-  bool isLoading = false;
+class SignUpPage extends StatelessWidget {
+  final nameController = TextEditingController();
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+    Future<void> handleSignUp() async {
+      try {
+        final String fullName = nameController.text;
+        final String username = usernameController.text;
+        final String email = emailController.text;
+        final String password = passwordController.text;
+
+        // Check if all fields are not empty
+        if (fullName.isEmpty || username.isEmpty || email.isEmpty || password.isEmpty) {
+          scaffoldMessenger.showSnackBar(
+            SnackBar(
+              content: Text("All fields are required."),
+              backgroundColor: Colors.red,
+            ),
+          );
+          return;
+        }
+
+        // Start a timer
+        Timer timeout = Timer(Duration(seconds: 10), () {
+          scaffoldMessenger.showSnackBar(
+            SnackBar(
+              content: Text("Sign-up process timed out. Please try again later."),
+              backgroundColor: Colors.red,
+            ),
+          );
+        });
+
+        // Call the sign-up method from the auth provider
+        await authProvider.signUp(
+          fullName: fullName,
+          username: username,
+          email: email,
+          password: password,
+        );
+
+        // Cancel the timer as the sign-up process is complete
+        timeout.cancel();
+
+        // Navigate to home or any desired screen after successful sign-up
+        Navigator.pushNamed(context, '/home');
+      } catch (error) {
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(error.toString()),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+
     Widget header() {
       return Container(
         margin: EdgeInsets.only(bottom: 50),
         child: Stack(
           children: [
             Container(
-              height: 100, // Adjust the height as needed
+              height: 100,
               decoration: BoxDecoration(
-                  color: coffee,
-                  borderRadius:
-                      BorderRadius.vertical(bottom: Radius.circular(30))),
+                color: coffee,
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(30),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
@@ -94,7 +143,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       width: 4,
                     ),
                     Expanded(
-                      child: TextFormField(
+                      child: TextField(
                         style: inputTextStyle,
                         controller: nameController,
                         decoration: InputDecoration.collapsed(
@@ -144,7 +193,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       width: 4,
                     ),
                     Expanded(
-                      child: TextFormField(
+                      child: TextField(
                         style: inputTextStyle,
                         controller: usernameController,
                         decoration: InputDecoration.collapsed(
@@ -194,7 +243,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       width: 4,
                     ),
                     Expanded(
-                      child: TextFormField(
+                      child: TextField(
                         style: inputTextStyle,
                         controller: emailController,
                         decoration: InputDecoration.collapsed(
@@ -240,15 +289,11 @@ class _SignUpPageState extends State<SignUpPage> {
               child: Center(
                 child: Row(
                   children: [
-                    // Image.asset(
-                    //   'assets/icon_password.png',
-                    //   width: 17,
-                    // ),
                     SizedBox(
                       width: 4,
                     ),
                     Expanded(
-                      child: TextFormField(
+                      child: TextField(
                         style: inputTextStyle,
                         obscureText: true,
                         controller: passwordController,
@@ -273,10 +318,7 @@ class _SignUpPageState extends State<SignUpPage> {
         width: double.infinity,
         margin: EdgeInsets.symmetric(horizontal: 75, vertical: defaultMargin),
         child: TextButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/home');
-          },
-          // onPressed: handleSignIn,
+          onPressed: handleSignUp,
           style: TextButton.styleFrom(
             backgroundColor: submit,
             shape: RoundedRectangleBorder(
@@ -338,9 +380,6 @@ class _SignUpPageState extends State<SignUpPage> {
                 passwordInput(),
                 signUpButton(),
                 footer()
-                // isLoading ? LoadingButton() : signInButton(),
-                // Spacer(),
-                // footer(),
               ],
             ),
           ],

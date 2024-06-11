@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"coffeemerce-app","appId":"1:456674996696:android:63c90dc2659e6aa6b442ad","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"coffeemerce-app","configurations":{"android":"1:456674996696:android:63c90dc2659e6aa6b442ad","ios":"1:456674996696:ios:9ac837c53939ff88b442ad"}}}}}}

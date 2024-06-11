@@ -120,10 +120,11 @@ class CartPage extends StatelessWidget {
       appBar: header() as PreferredSizeWidget?,
       body: Stack(
         children: [
-          content(),
+          emptyCart(),
+          // content(),
           Align(
             alignment: Alignment.bottomCenter,
-            child: customBottomNav(),
+            // child: customBottomNav(),
           ),
         ],
       ),

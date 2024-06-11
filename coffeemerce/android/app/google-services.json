@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "456674996696",
+    "project_id": "coffeemerce-app",
+    "storage_bucket": "coffeemerce-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456674996696:android:63c90dc2659e6aa6b442ad",
+        "android_client_info": {
+          "package_name": "com.example.coffeemerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXRj90Y3Fa4S7gb2oyH0MOEUn-ZXrrQiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

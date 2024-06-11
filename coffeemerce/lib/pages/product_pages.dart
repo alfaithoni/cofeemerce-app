@@ -183,14 +183,14 @@ class _ProductPagesState extends State<ProductPages> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Beans Gayo Arabica 1kg',
+                          'Beans Gayo Arabica 1kg', //nama
                           style: primaryTextStyle.copyWith(
                             fontSize: 18,
                             fontWeight: semiBold,
                           ),
                         ),
                         Text(
-                          'Arabica',
+                          'Arabica', //category
                           style: primaryTextStyle.copyWith(
                             fontSize: 16,
                             fontWeight: medium,
@@ -261,7 +261,7 @@ class _ProductPagesState extends State<ProductPages> {
                     style: homeTextStyle,
                   ),
                   Text(
-                    'Rp 189.000,00',
+                    'Rp 189.000,00', //price
                     style: homeTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -290,6 +290,7 @@ class _ProductPagesState extends State<ProductPages> {
                   SizedBox(
                     height: 12,
                   ),
+                  //description
                   Text(
                     '(Light / 1kg) Cocok untuk manual brew via pour-over / drip / v60 yang menghasilkan rasa dan aroma yang lembut, fruity dan acidic, tanpa pahit sedikitpun. Suitable for manual brew via pour-over / drip / v60 for soft, fruity and acidic with zero bitterness.',
                     style: primaryTextStyle.copyWith(fontWeight: light),

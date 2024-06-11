@@ -23,7 +23,7 @@ class WishlistCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
-              'assets/coffeemerce.png',
+              'assets/coffeebeans.png',
               width: 60,
             ),
           ),

@@ -1,8 +1,13 @@
-import 'package:coffeemerce/pages/widgets/product_tile.dart';
 import 'package:coffeemerce/themes.dart';
 import 'package:flutter/material.dart';
+import '../home/product.dart'; // Assuming Product model is defined in product.dart
+import '../widgets/product_tile.dart';
 
 class HomePage extends StatefulWidget {
+  final List<Product> products;
+
+  HomePage({required this.products});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -12,16 +17,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> coffeeTypes = [
-      'All Beans',
-      'Arabica',
-      'Robusta',
-      'Gayo',
-      'Toraja',
-      'Flores',
-      'Kintamani'
-    ];
-
     Widget header() {
       return Container(
         margin: EdgeInsets.only(
@@ -48,6 +43,12 @@ class _HomePageState extends State<HomePage> {
     }
 
     Widget types() {
+      List<String> coffeeTypes = [
+        'All Beans',
+        'Arabica',
+        'Robusta',
+      ];
+
       return Container(
         margin: EdgeInsets.only(top: defaultMargin),
         child: SingleChildScrollView(
@@ -99,28 +100,29 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    Widget bodyArabica(){
+    Widget body() {
+      List<Product> filteredProducts = [];
+
+      if (currentTypesIndex == 0) {
+        filteredProducts = widget.products;
+      } else {
+        String selectedCategory = ['All Beans', 'Arabica', 'Robusta'][currentTypesIndex];
+        filteredProducts = widget.products.where((product) => product.category == selectedCategory).toList();
+      }
+
       return Container(
         margin: EdgeInsets.only(top: 14),
         child: Column(
-          children: [
-            ProductTile(),
-            ProductTile(),
-            ProductTile(),
-            ProductTile(),
-            ProductTile(),
-            ProductTile(),
-            ProductTile(),
-          ],
+          children: filteredProducts.map((product) => ProductTile(product: product)).toList(),
         ),
       );
     }
-    
+
     return ListView(
       children: [
         header(),
         types(),
-        bodyArabica(),
+        body(),
       ],
     );
   }
